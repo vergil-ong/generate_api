@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>API文档</title>
+<link href="source/api.css" rel="stylesheet" type="text/css" />
+<script language="javascript" src="source/jquery.min.js"></script>
+<script language="javascript" src="source/jquery.dimensions.js"></script>
+</head>
+<body>
+<div class="tit">
+	<div id="titcont">
+    	API文档<span class="sma"> Author:Ong Email:865208597@qq.com</span>
+    </div>
+</div>
+<div id="cont">
+<div class='fun'>
+	<div class='lineface'>一、接口总述 </div>
+	<span>#.<em>全局参数说明</em></span>
+	<span class='ri'></span>
+	<div class='says'>
+        <%
+        for(params in globalParams){
+            if(params.key == 'versiontime'){
+                continue;
+            }
+            print(params.key + " : "+params.value);
+        %>
+        <br>
+        <%
+        }
+        %>
+    </div>
+</div>
+<div class='fun'>
+	<div class='lineface'>二、接口详情</div>
+
+
+    <%
+    for(item in params){
+    %>
+    <a name="文章列表接口"></a>
+    <span class='le'>#.<em><%print(item.key);%></em> <b>描述:<%print(item.value.desc);%></b></span>
+    <span class='ri'>方式:<em> <%print(item.value.method);%></em></span><br>
+    <span class='ri'>示例URL:<em> <a href='<%print(item.value.testURL);%>' target='_blank'><%print(item.value.testURL);%></a> </em></span>
+    <div class='says'>传参说明:
+        参数说明:
+        <table>
+            <thead>
+            <tr>
+                <th>名称</th>
+                <th style="text-align:center">必填</th>
+                <th style="text-align:right">类型</th>
+                <th style="text-align:right">说明</th>
+                <th style="text-align:right">默认值</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%
+                for(keyParams in item.value.paramArray){
+            %>
+            <tr>
+                <td><%print(keyParams[0]);%></td>
+                <td style="text-align:center"><%print(keyParams[1]);%></td>
+                <td style="text-align:right"><%print(keyParams[2]);%></td>
+                <td style="text-align:right"><%print(keyParams[3]);%></td>
+                <td style="text-align:right"><%print(keyParams[4]);%></td>
+            </tr>
+            <%}
+            %>
+
+            </tbody>
+        </table>
+    </div>
+    <div class='says'>返回结构示例：
+<pre class="intersays">
+    <%
+    print(item.value.responseExample);
+    %>
+</pre>
+    </div>
+</div>
+    <%
+    }
+    %>
+
+<div class="info">
+    <b>*</b> 本接口文档最后更新时间：<span class="red"><%print(globalParams.versiontime);%></span><br>
+</div>
+</div>
+<div id="foot">
+个人制作
+</div>
+
+
+<!--浮动接口导航栏-->
+<div id="floatMenu">
+  <ul class="menu"></ul>
+</div>
+<script language="javascript">
+var name = "#floatMenu";
+var menuYloc = null;
+$(document).ready(function(){
+    $(".le > em").each(function(index, element){
+        $(".menu").append(" <li><a href='#"+ $(this).text() +"'>"+ $(this).text()+"</a></li>");
+    });
+    menuYloc = parseInt($(name).css("top").substring(0,$(name).css("top").indexOf("px")))
+    $(window).scroll(function () { 
+        offset = menuYloc+$(document).scrollTop()+"px";
+        $(name).animate({top:offset},{duration:500,queue:false});
+    });
+});
+</script>
+</body>
+</html>
